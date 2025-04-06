@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ChatbotIcon from "./components/ChatbotIcon";
 import Chatform from "./components/Chatform";
 import ChatMessage from "./components/ChatMessage";
@@ -9,31 +9,61 @@ function App() {
   const [chatHistory, setChatHistory] = useState([]);
   const [currResponse, setCurrResponse] = useState([]);
   const [buttonsVisible, setButtonsVisible] = useState(true);
+  const divRef = useRef();
+
+  const scrollToElement = () => {
+    const { current } = divRef;
+    if (current !== null) {
+      current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     // Initialize with the "start" conversation
     generateBotResponse("start", chatHistory);
   }, []);
+  useEffect(() => {
+    //scrolls to newest messages whenever chatHistory is updated
+    scrollToElement();
+  }, [chatHistory]);
 
   const generateBotResponse = (currentStage, history) => {
     const stage = conversationData[currentStage];
 
     if (!stage) return;
+
+    if (stage.bot === "end") {
+      return;
+    }
+
     // Add model response to chat history
-    const newHistory = [...history, { role: "model", text: stage.bot }];
-    setChatHistory(newHistory);
+    if (stage.botNext !== undefined) {
+      //if bot has multiple messages
+      const newHistory = [...history, { role: "model", text: stage.bot }];
+      setChatHistory(newHistory);
 
-    // Add user options (buttons) to the response
-    setCurrResponse(stage.options);
+      // Generate next model response based on the next stage
+      setTimeout(() => {
+        generateBotResponse(stage.botNext, newHistory);
+      }, 600);
+    } else {
+      const newHistory = [...history, { role: "model", text: stage.bot }];
+      setChatHistory(newHistory);
 
-    // Show the buttons after a delay (mimicking response time)
-    setButtonsVisible(true);
+      // Add user options (buttons) to the response
+      setCurrResponse(stage.options);
+
+      // Show the buttons after a delay (mimicking response time)
+      setButtonsVisible(true);
+    }
   };
 
   const handleUserChoice = (choice) => {
+    //stop conversation
     const nextStage = choice.next;
-    console.log(conversationData[choice.next].botNext);
+
     if (conversationData[choice.next].botNext !== undefined) {
+      //if bot has multiple messages
       const newHistory = [
         ...chatHistory,
         { role: "user", text: choice.text },
@@ -94,7 +124,7 @@ function App() {
           ))}
 
           {/* Render the buttons dynamically based on current response */}
-          <div className="buttonContainer">
+          <div className="buttonContainer" ref={divRef}>
             {buttonsVisible &&
               currResponse.map((option, index) => (
                 <ChatButton

@@ -9,30 +9,180 @@
   "ideal_budget": {
     "bot": "What is your ideal budget?",
     "options": [
-      { "text": "Not Sure", "next": "ideal_budget_not_sure" },
-      { "text": "Under 300", "next": "fuji" },
-      { "text": "300-600", "next": "fuji" }
-      { "text": "600+", "next": "fuji" }
+      { "text": "Not Sure..", "next": "ideal_budget_not_sure" },
+      { "text": "Under 300", "next": "budget_questions" },
+      { "text": "300-600", "next": "average_questions" },
+      { "text": "600+", "next": "premium_questions" }
     ]
   },
   "ideal_budget_not_sure": {
-    "bot": "Are you looking for a phone that has the  simple necessary features (call, text, message), an average phone, or the most premium phones on the market?",
+    "bot": "What kind of phone do you have in mind? An affordable and basic basic option for calling and texting, a standard everyday phone, or a premium device offering the best technology available?",
     "options": [
-      { "text": "Not Sure", "next": "ideal_budget_not_sure" },
-      { "text": "Under 300", "next": "fuji" },
-      { "text": "300-600", "next": "fuji" }
-      { "text": "600+", "next": "fuji" }
+      {
+        "text": "Not Sure.. contact a human expert",
+        "next": "contact_customer_service"
+      },
+      { "text": "Something simple", "next": "buget_questions" },
+      { "text": "Average number of features", "next": "average_questions" },
+      { "text": "Most premium options", "next": "premium_questions" }
+    ]
+  },
+  "contact_customer_service": {
+    "bot": "Getting in touch with customer service…",
+    "botNext": "none"
+  },
+  "budget_questions": {
+    "bot": "Do you find yourself in need of a phone with a stronger and faster performance, or a reliable but less powerful option?",
+    "options": [
+      { "text": "Processing power", "next": "budget_strong" },
+      { "text": "Longevity", "next": "budget_reliable" },
+      { "text": "Not sure..", "next": "budget_phone_overview" }
+    ]
+  },
+  "average_questions": {
+    "bot": "Do you prioritize higher battery life, stronger performance, or a mix of both?",
+    "options": [
+      { "text": "Longer battery", "next": "average_battery" },
+      { "text": "Faster processing and storage", "next": "average_strong" },
+      { "text": "Average of both", "next": "average_balance" },
+      { "text": "Not sure..", "next": "average_questions_helper" }
+    ]
+  },
+  "average_questions_helper": {
+    "bot": "Would you like to see all 3 options, or be directed to a human expert?",
+    "options": [
+      { "text": "!", "next": "contact_customer_service" },
+      { "text": "All options", "next": "average_phone_overview" }
+    ]
+  },
+  "premium_questions": {
+    "bot": "Do you prefer premium features, or high-performance hardware?",
+    "options": [
+      { "text": "Premium features!", "next": "premium_hardware" },
+      { "text": "Stronger processing!", "next": "premium_features" },
+      { "text": "Not sure..", "next": "premium_questions_helper" }
+    ]
+  },
+  "premium_questions_helper": {
+    "bot": "Premium multimedia features include the clearest displays on the market, advanced image processing with multi-lens camera systems, and high-fidelity stereo speakers. High-performance hardware options include fast processors and ample internal storage? Which side do you think you lean towards more?",
+    "options": [
+      { "text": "Gaming/ faster phone", "next": "premium_hardware" },
+      { "text": "Better display/ camera", "next": "premium_features" },
+      {
+        "text": "Still not sure.. contact an expert!",
+        "next": "contact_customer_service"
+      }
+    ]
+  },
+  "premium_features": {
+    "bot": "Would you prefer a high-quality display for better visuals, or a top-notch camera for capturing great photos and videos?",
+    "options": [
+      { "text": "Display", "next": "premium_display" },
+      { "text": "Camera", "next": "premium_camera" }
+    ]
+  },
+  "premium_hardware": {
+    "bot": "Would you prefer the top of the line specs, built for gaming and demanding tasks, or a less powerful but more battery efficient daily use alternative?",
+    "options": [
+      { "text": "Gaming", "next": "premium_game" },
+      { "text": "Daily use", "next": "premium_daily" }
+    ]
+  },
+  "question_budget": {
+    "bot": "Would you like to see other phones in the affordable price range?",
+    "options": [
+      { "text": "Yes!", "next": "budget_phone_overview" },
+      { "text": "No", "next": "end_conversation" }
+    ]
+  },
+  "question_average": {
+    "bot": "Would you like to see other competitors in a similar price range?",
+    "options": [
+      { "text": "Yes!", "next": "average_phone_overview" },
+      { "text": "No", "next": "end_conversation" }
+    ]
+  },
+  "question_premium_or_customer_service": {
+    "bot": "Would you like to see all 4 premium options, or be directed to a human expert who may be able to assist you with more detailed questions?",
+    "options": [
+      { "text": "Yes!", "next": "premium_phone_overview" },
+      {
+        "text": "No, contact customer service",
+        "next": "contact_customer_service"
+      }
+    ]
+  },
+  "question_premium": {
+    "bot": "Would you like to see all competitors in the premium price range?",
+    "options": [
+      { "text": "Yes!", "next": "premium_phone_overview" },
+      { "text": "No", "next": "end_conversation" }
+    ]
+  },
+  "end_conversation": {
+    "bot": "It was wonderful talking with you, and I hope I was able to help!",
+    "botNext": "post_end_conversation"
+  },
+  "post_end_conversation": {
+    "bot": "Before we wrap up, would you like to go through the questions again to explore other options? If not, I’d really appreciate it if you took a quick survey—the feedback helps me get better at assisting more customers!",
+    "options": [
+      { "text": "Survey!", "next": "none" },
+      { "text": "Re-answer", "next": "start" }
     ]
   },
   "all_phone_overview": {
     "bot": "Sure! Here's a quick overview of all the phones!",
     "botNext": "end_conversation"
   },
-  "end_conversation": {
-    "bot": "Would you like to Re-answer questions or conduct survey?",
-    "options": [
-      { "text": "Survey!", "next": "end_conversation" },
-      { "text": "Re-answer", "next": "start" }
-    ]
+  "budget_phone_overview": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "average_phone_overview": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "premium_phone_overview": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "budget_strong": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "budget_reliable": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "average_battery": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "average_strong": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "average_balance": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "premium_display": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "premium_camera": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "premium_game": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "premium_daily": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "none": {
+    "bot": "end"
   }
 }
