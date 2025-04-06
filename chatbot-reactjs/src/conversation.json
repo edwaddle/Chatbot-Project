@@ -1,0 +1,38 @@
+{
+  "start": {
+    "bot": "Would you like to see an overview for each phone, or answer a few questions so I can help you identify possible candidates?",
+    "options": [
+      { "text": "Questions", "next": "ideal_budget" },
+      { "text": "Overview of phones", "next": "all_phone_overview" }
+    ]
+  },
+  "ideal_budget": {
+    "bot": "What is your ideal budget?",
+    "options": [
+      { "text": "Not Sure", "next": "ideal_budget_not_sure" },
+      { "text": "Under 300", "next": "fuji" },
+      { "text": "300-600", "next": "fuji" }
+      { "text": "600+", "next": "fuji" }
+    ]
+  },
+  "ideal_budget_not_sure": {
+    "bot": "Are you looking for a phone that has the  simple necessary features (call, text, message), an average phone, or the most premium phones on the market?",
+    "options": [
+      { "text": "Not Sure", "next": "ideal_budget_not_sure" },
+      { "text": "Under 300", "next": "fuji" },
+      { "text": "300-600", "next": "fuji" }
+      { "text": "600+", "next": "fuji" }
+    ]
+  },
+  "all_phone_overview": {
+    "bot": "Sure! Here's a quick overview of all the phones!",
+    "botNext": "end_conversation"
+  },
+  "end_conversation": {
+    "bot": "Would you like to Re-answer questions or conduct survey?",
+    "options": [
+      { "text": "Survey!", "next": "end_conversation" },
+      { "text": "Re-answer", "next": "start" }
+    ]
+  }
+}

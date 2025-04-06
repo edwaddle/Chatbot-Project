@@ -1,30 +1,31 @@
-import React from "react";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
-const Chatform = ({ setChatHistory }) => {
+const Chatform = ({ setChatHistory, generateBotResponse, chatHistory }) => {
   const inputRef = useRef();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const userMessage = inputRef.current.value.trim();
-    if (!userMessage) {
-      return;
-    }
-    console.log(userMessage);
+    if (!userMessage) return;
 
-    //update chat history with user's message
-    setChatHistory((history) => [
-      ...history,
+    const newHistory = [
+      ...chatHistory,
       { role: "user", text: userMessage },
-    ]);
-
-    //Thinking
-    setChatHistory((history) => [
-      ...history,
       { role: "model", text: "Thinking..." },
-    ]);
+    ];
+
+    // Update chat history with user + placeholder
+    setChatHistory(newHistory);
+
+    // Call the bot after a delay
+    setTimeout(() => {
+      generateBotResponse(newHistory);
+    }, 600);
+
+    // Clear the input field after submission
     inputRef.current.value = "";
   };
+
   return (
     <form action="#" className="chat-form" onSubmit={handleFormSubmit}>
       <input
@@ -34,7 +35,7 @@ const Chatform = ({ setChatHistory }) => {
         className="message-input"
         required
       />
-      <button class="material-symbols-outlined">arrow_upward</button>
+      <button className="material-symbols-outlined">arrow_upward</button>
     </form>
   );
 };
