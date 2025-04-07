@@ -4,8 +4,7 @@
 - npm run dev (start up a local server to run)
 
 ## Approach
-Researched and looked into how to make an effective chatbot, then researched how to choose the correct phone for you. Drew out inital sketches for how I wanted the conversation paths to flow, before moving the design into FigJam. Created a Chatbot UI, and eventually created an external JSON which would be fetched to find 
-the corresponding options to be displayed, as well as the corresponding bot response. Used buttons to streamline this process. Created a google slide to showcase the project, and create a markdown to encapsulate everything.
+I conducted research on creating effective chatbot and guides on how to choose the right phone. Utilizing these insights, I sketched initial conversation paths and transferred the design into FigJam for organization. I created the chatbot UI and developed an external JSON file to store corresponding conversation options and bot responses, which are fetched dynamically. I chose the external JSON approach in order to better make room for scalibility, in case more choices or questions need to be asked in the future. To streamline user interactions, I incorporated buttons for easier navigation. Finally, I created a Google Slide presentation to showcase the project and drafted a markdown document to encapulsate the entire process.
 
 ## FigJam (flowchart):
 https://www.figma.com/board/s3CzVGLz67dCsXhEEUMpFw/Flow-Chart-Template--Copy-?node-id=0-1&t=qCux3QoyEnDHeKAs-1
