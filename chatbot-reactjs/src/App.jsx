@@ -3,14 +3,25 @@ import ChatbotIcon from "./components/ChatbotIcon";
 import Chatform from "./components/Chatform";
 import ChatMessage from "./components/ChatMessage";
 import ChatButton from "./components/ChatButton";
-import conversationData from "./conversation.json"; // Import the JSON file
+import conversationData from "./conversation.json"; // Import the conversation flow JSON
 
 function App() {
+  // State for storing the conversation history
   const [chatHistory, setChatHistory] = useState([]);
+
+  // Toggles chatbot visibility
+  const [showChatbot, setShowChatbot] = useState(false);
+
+  // Stores the current set of options (buttons) for the user
   const [currResponse, setCurrResponse] = useState([]);
+
+  // Controls whether buttons should be visible
   const [buttonsVisible, setButtonsVisible] = useState(true);
+
+  // Ref to enable auto-scrolling to latest message
   const divRef = useRef();
 
+  // Scrolls to the latest message in the chat
   const scrollToElement = () => {
     const { current } = divRef;
     if (current !== null) {
@@ -18,84 +29,87 @@ function App() {
     }
   };
 
+  // Initialize the chatbot with "start"
   useEffect(() => {
-    // Initialize with the "start" conversation
     generateBotResponse("start", chatHistory);
   }, []);
+
+  // When history updates, scroll to newest messages
   useEffect(() => {
-    //scrolls to newest messages whenever chatHistory is updated
     scrollToElement();
   }, [chatHistory]);
 
   const generateBotResponse = (currentStage, history) => {
     const stage = conversationData[currentStage];
-
     if (!stage) return;
 
+    // Stop conversation if bot reaches "end"
     if (stage.bot === "end") {
       return;
     }
 
-    // Add model response to chat history
+    // Handle cases where bot has multiple linked messages
     if (stage.botNext !== undefined) {
-      //if bot has multiple messages
       const newHistory = [...history, { role: "model", text: stage.bot }];
       setChatHistory(newHistory);
 
-      // Generate next model response based on the next stage
+      //Delay for realism
       setTimeout(() => {
         generateBotResponse(stage.botNext, newHistory);
       }, 600);
     } else {
+      // Add bot response to history
       const newHistory = [...history, { role: "model", text: stage.bot }];
       setChatHistory(newHistory);
-
-      // Add user options (buttons) to the response
       setCurrResponse(stage.options);
 
-      // Show the buttons after a delay (mimicking response time)
+      // Make buttons visible after bot response
       setButtonsVisible(true);
     }
   };
 
+  // Handles what happens when a user selects an option
   const handleUserChoice = (choice) => {
-    //stop conversation
     const nextStage = choice.next;
 
+    // Check if the bot has multiple messages
     if (conversationData[choice.next].botNext !== undefined) {
-      //if bot has multiple messages
       const newHistory = [
         ...chatHistory,
         { role: "user", text: choice.text },
         { role: "model", text: conversationData[choice.next].bot },
       ];
       setChatHistory(newHistory);
+      setButtonsVisible(false); // Hide buttons before bot response
 
-      // Hide the buttons temporarily
-      setButtonsVisible(false);
-
-      // Generate next model response based on the next stage
       setTimeout(() => {
         generateBotResponse(conversationData[choice.next].botNext, newHistory);
       }, 600);
     } else {
-      // Add user's choice to chat history
+      // Add the user's choice to the chat history
       const newHistory = [...chatHistory, { role: "user", text: choice.text }];
       setChatHistory(newHistory);
+      setButtonsVisible(false); // Hide buttons before bot reponse
 
-      // Hide the buttons temporarily
-      setButtonsVisible(false);
-
-      // Generate next model response based on the next stage
       setTimeout(() => {
         generateBotResponse(nextStage, newHistory);
       }, 600);
     }
   };
-  //console.log(chatHistory);
 
   return (
-    <div className="container">
+    <div className={`container ${showChatbot ? "show-chatbot" : ""}`}>
+      {/* Toggle button to show/hide chatbot */}
+      <button
+        onClick={() => {
+          setShowChatbot((prev) => !prev);
+        }}
+        id="chatbot-toggler"
+      >
+        <span className="material-symbols-outlined">mode_comment</span>
+        <span className="material-symbols-outlined">close</span>
+      </button>
+
       <div className="chatbot-popup">
         {/* Chatbot Header */}
         <div className="chat-header">
@@ -103,27 +117,45 @@ function App() {
             <ChatbotIcon />
             <h2 className="logo-text">Chatbot</h2>
           </div>
-          <button className="material-symbols-outlined">
+
+          {/* Language selector (currently just visual) */}
+          <div className="language-selector">
+            <label htmlFor="language-select"></label>
+            <select id="language-select">
+              <option value="English">English</option>
+              <option value="Chinese">中文</option>
+              <option value="Spanish">Español</option>
+            </select>
+          </div>
+
+          {/* Collapse button */}
+          <button
+            onClick={() => {
+              setShowChatbot((prev) => !prev);
+            }}
+            className="material-symbols-outlined"
+          >
             keyboard_arrow_down
           </button>
         </div>
 
         {/* Chatbot Body */}
-
         <div className="chat-body">
-          <div className=" message bot-message">
+          {/* Immediately display welcome messages */}
+          <div className="message bot-message">
             <ChatbotIcon />
             <p className="message-text">
               Hey, I'm Waddles! <br />
               I'm an AI assistant dedicated to help you choose your phone!
             </p>
           </div>
-          {/* Render the chat history dynamically */}
+
+          {/* Render conversation messages */}
           {chatHistory.map((chat, index) => (
             <ChatMessage key={index} chat={chat} />
           ))}
 
-          {/* Render the buttons dynamically based on current response */}
+          {/* Render option buttons */}
           <div className="buttonContainer" ref={divRef}>
             {buttonsVisible &&
               currResponse.map((option, index) => (
@@ -138,7 +170,7 @@ function App() {
           </div>
         </div>
 
-        {/* Chatbot Footer */}
+        {/* Chatbot Footer with input field */}
         <div className="chat-footer">
           <Chatform
             setChatHistory={setChatHistory}

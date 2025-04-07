@@ -11,19 +11,61 @@ body {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
+}
+
+#chatbot-toggler {
+  position: fixed;
+  bottom: 30px;
+  right: 35px;
+  border: none;
+  height: 50px;
+  width: 50px;
   display: flex;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #6d4fc2 50%;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+}
+#chatbot-toggler span {
+  position: absolute;
+  color: #fff;
+}
+
+.container.show-chatbot #chatbot-toggler {
+  transform: rotate(90deg);
+}
+#chatbot-toggler span:last-child,
+.container.show-chatbot #chatbot-toggler span:first-child {
+  opacity: 0;
+}
+
+.container.show-chatbot #chatbot-toggler span:last-child {
+  opacity: 1;
 }
 
 .chatbot-popup {
-  position: relative;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  bottom: 90px;
+  right: 35px;
   width: 420px;
+  transform: scale(0.2);
   overflow: hidden;
   background: #f0efe9;
   border-radius: 16px;
+  transform-origin: bottom right;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
+  transition: all 0.1s ease;
+}
+
+.container.show-chatbot .chatbot-popup {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .chatbot-popup .chat-header {
@@ -54,6 +96,23 @@ body {
   color: #fff;
   font-size: 1.31 rem;
   font-weight: 600;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.language-selector select {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
 }
 
 .chat-header button {
@@ -145,6 +204,7 @@ body {
   border: 2px solid #66b758;
   font-size: 0.75rem;
   height: fit-content;
+  transition: all 0.2s ease;
 }
 
 .chatButton:hover {

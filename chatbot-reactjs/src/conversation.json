@@ -9,7 +9,7 @@
   "ideal_budget": {
     "bot": "What is your ideal budget?",
     "options": [
-      { "text": "Not Sure..", "next": "ideal_budget_not_sure" },
+      { "text": "Not sure..", "next": "ideal_budget_not_sure" },
       { "text": "Under 300", "next": "budget_questions" },
       { "text": "300-600", "next": "average_questions" },
       { "text": "600+", "next": "premium_questions" }
@@ -19,7 +19,7 @@
     "bot": "What kind of phone do you have in mind? An affordable and basic basic option for calling and texting, a standard everyday phone, or a premium device offering the best technology available?",
     "options": [
       {
-        "text": "Not Sure.. contact a human expert",
+        "text": "Not sure.. contact a human expert",
         "next": "contact_customer_service"
       },
       { "text": "Something simple", "next": "buget_questions" },
@@ -131,55 +131,55 @@
     ]
   },
   "all_phone_overview": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of all the phones! [overview]",
     "botNext": "end_conversation"
   },
   "budget_phone_overview": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of all the phones! [overview]",
     "botNext": "end_conversation"
   },
   "average_phone_overview": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of all the phones! [overview]",
     "botNext": "end_conversation"
   },
   "premium_phone_overview": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of all the phones! [overview]",
     "botNext": "end_conversation"
   },
   "budget_strong": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "budget_reliable": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "average_battery": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "average_strong": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "average_balance": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "premium_display": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "premium_camera": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "premium_game": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "premium_daily": {
-    "bot": "Sure! Here's a quick overview of all the phones!",
+    "bot": "Sure! Here's a quick overview of the phone! [overview]",
     "botNext": "end_conversation"
   },
   "none": {
